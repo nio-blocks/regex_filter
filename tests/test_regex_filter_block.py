@@ -11,10 +11,10 @@ class DummySignal(Signal):
 
 
 class TestRegExFilter(NIOBlockTestCase):
-    
+
     def test_pass(self):
         signals = [DummySignal(v) for v in ['a', 'ba', 'aaba']]
-            
+
         blk = RegExFilter()
         self.configure_block(blk, {
             "pattern": '',
@@ -27,7 +27,7 @@ class TestRegExFilter(NIOBlockTestCase):
 
     def test_filter_case_sensitive(self):
         signals = [DummySignal(v) for v in ['a', 'ba', 'AAbA']]
-            
+
         blk = RegExFilter()
         self.configure_block(blk, {
             "pattern": 'a',
@@ -40,13 +40,13 @@ class TestRegExFilter(NIOBlockTestCase):
 
     def test_filter_case_insensitive(self):
         signals = [DummySignal(v) for v in ['a', 'ba', 'AAbA']]
-            
+
         blk = RegExFilter()
         self.configure_block(blk, {
             "log_level": "DEBUG",
             "pattern": 'a',
             "string": '{{$val}}',
-            "case_sensitive": False
+            "ignore_case": True
         })
         blk.start()
         blk.process_signals(signals)

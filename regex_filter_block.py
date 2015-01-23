@@ -13,14 +13,14 @@ class RegExFilter(Block):
     Properties:
         pattern (str): The regular expression to search
         string (expr): Match against this expression.
-        case_sensitive (bool): Is the match case sensitive.
+        ignore_case (bool): Is the match case insensitive.
 
     """
 
     pattern = StringProperty(title="Pattern (RegEx)")
     string = ExpressionProperty(title="Match String",
                                 default='', attr_default=Exception)
-    case_sensitive = BoolProperty(title="Case Sensitive", default=True)
+    ignore_case = BoolProperty(title="Ignore Case", default=False)
 
     def __init__(self):
         super().__init__()
@@ -28,10 +28,10 @@ class RegExFilter(Block):
 
     def configure(self, context):
         super().configure(context)
-        if self.case_sensitive:
-            self._compiled = re.compile(self.pattern)
-        else:
+        if self.ignore_case:
             self._compiled = re.compile(self.pattern, re.I)
+        else:
+            self._compiled = re.compile(self.pattern)
 
     def process_signals(self, signals):
         results = []
@@ -47,4 +47,4 @@ class RegExFilter(Block):
                 )
         if results:
             self.notify_signals(results)
-    
+

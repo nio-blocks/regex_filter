@@ -6,6 +6,7 @@ from nio.metadata.properties import StringProperty, \
     ExpressionProperty, BoolProperty
 
 
+@Discoverable(DiscoverableType.block)
 class RegExFilter(Block):
 
     """ A block to match incoming signals agains a Regular Expression.

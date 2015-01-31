@@ -25,6 +25,20 @@ class TestRegExFilter(NIOBlockTestCase):
         self.assert_num_signals_notified(3, blk)
         blk.stop()
 
+    def test_inverse_flag(self):
+        signals = [DummySignal(v) for v in ['a', 'ba', 'aaba']]
+
+        blk = RegExFilter()
+        self.configure_block(blk, {
+            "pattern": 'b',
+            "string": '{{$val}}',
+            "inverse": True
+        })
+        blk.start()
+        blk.process_signals(signals)
+        self.assert_num_signals_notified(1, blk)
+        blk.stop()
+
     def test_filter_case_sensitive(self):
         signals = [DummySignal(v) for v in ['a', 'ba', 'AAbA']]
 

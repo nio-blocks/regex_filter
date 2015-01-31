@@ -22,6 +22,7 @@ class RegExFilter(Block):
     string = ExpressionProperty(title="Match String",
                                 default='', attr_default=Exception)
     ignore_case = BoolProperty(title="Ignore Case", default=False)
+    inverse = BoolProperty(title="Inverse Matching", default = False)
 
     def __init__(self):
         super().__init__()
@@ -39,7 +40,12 @@ class RegExFilter(Block):
         for s in signals:
             try:
                 match = self._compiled.search(str(self.string(s)))
-                if match is not None:
+                if match is not None and not self.inverse:
+                    # signal matched
+                    results.append(s)
+                elif match is None and self.inverse:
+                    # signal didn't match,
+                    # but we want inverse (i.e. non-matching signals)
                     results.append(s)
             except Exception as e:
                 self._logger.debug(

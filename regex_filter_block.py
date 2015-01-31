@@ -22,7 +22,7 @@ class RegExFilter(Block):
     string = ExpressionProperty(title="Match String",
                                 default='', attr_default=Exception)
     ignore_case = BoolProperty(title="Ignore Case", default=False)
-    inverse = BoolProperty(title="Inverse Matching", default = False)
+    inverse = BoolProperty(title="Inverse Matching", default=False)
 
     def __init__(self):
         super().__init__()

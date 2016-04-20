@@ -1,6 +1,6 @@
 from collections import defaultdict
-from nio.util.support.block_test_case import NIOBlockTestCase
-from nio.common.signal.base import Signal
+from nio.testing.block_test_case import NIOBlockTestCase
+from nio.signal.base import Signal
 from ..regex_filter_block import RegExFilter
 
 
@@ -12,14 +12,6 @@ class DummySignal(Signal):
 
 
 class TestRegExFilter(NIOBlockTestCase):
-
-    def setUp(self):
-        super().setUp()
-        # This will keep a list of signals notified for each output
-        self.last_notified = defaultdict(list)
-
-    def signals_notified(self, signals, output_id='default'):
-        self.last_notified[output_id].extend(signals)
 
     def test_pass(self):
         signals = [DummySignal(v) for v in ['a', 'ba', 'aaba']]

@@ -1,19 +1,17 @@
 import re
-from nio.common.block.attribute import Output
-from nio.common.versioning.dependency import DependsOn
-from nio.common.block.base import Block
-from nio.common.discovery import Discoverable, DiscoverableType
-from nio.metadata.properties import StringProperty, \
-    ExpressionProperty, BoolProperty, VersionProperty
+from nio.block.terminals import output
+from nio.block.base import Block
+from nio.util.discovery import discoverable
+from nio.properties import StringProperty, \
+    Property, BoolProperty, VersionProperty
 
 
-@Output('false')
-@Output('true')
-@DependsOn('nio', '1.5.2')
-@Discoverable(DiscoverableType.block)
+@output('false')
+@output('true')
+@discoverable
 class RegExFilter(Block):
 
-    """ A block to match incoming signals against a Regular Expression.
+    """ A block to match incoming signals against a Regular .
 
     Properties:
         pattern (str): The regular expression to search
@@ -22,11 +20,10 @@ class RegExFilter(Block):
 
     """
 
-    version = VersionProperty(version="0.1.0")
-    pattern = StringProperty(title="Pattern (RegEx)")
-    string = ExpressionProperty(title="Match String",
-                                default='', attr_default=Exception)
+    pattern = StringProperty(title="Pattern (RegEx)", default='')
+    string = Property(title="Match String", default='')
     ignore_case = BoolProperty(title="Ignore Case", default=False)
+    version = VersionProperty(version="0.1.0")
 
     def __init__(self):
         super().__init__()
@@ -34,10 +31,10 @@ class RegExFilter(Block):
 
     def configure(self, context):
         super().configure(context)
-        if self.ignore_case:
-            self._compiled = re.compile(self.pattern, re.I)
+        if self.ignore_case():
+            self._compiled = re.compile(self.pattern(), re.I)
         else:
-            self._compiled = re.compile(self.pattern)
+            self._compiled = re.compile(self.pattern())
 
     def process_signals(self, signals):
         true_result = []
@@ -51,17 +48,17 @@ class RegExFilter(Block):
                 else:
                     false_result.append(s)
             except Exception as e:
-                self._logger.debug(
+                self.logger.debug(
                     "Evaluation failed: {}: {}".format(
                         type(e).__name__, str(e))
                 )
 
-        self._logger.debug("Emitting {} true signals".format(
+        self.logger.debug("Emitting {} true signals".format(
             len(true_result)))
         if len(true_result):
             self.notify_signals(true_result, 'true')
 
-        self._logger.debug("Emitting {} false signals".format(
+        self.logger.debug("Emitting {} false signals".format(
             len(false_result)))
         if len(false_result):
             self.notify_signals(false_result, 'false')

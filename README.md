@@ -8,9 +8,9 @@ For performance reasons, this block pre-compiles the regular expression at block
 Properties
 -----------
 
--   **pattern** (RegEx str): The regular expression against which incoming signals are matched.
--   **match_string** (expr): Evaluated against each signal, emits the match string.
--   **ignore_case** (bool, default=False): Perform a case insensitive search if `True`.
+-   **pattern** (type:regex): The regular expression against which incoming signals are matched.
+-   **match_string** (type:expression): Evaluated against each signal, emits the match string.
+-   **ignore_case** (type:bool, default:False): Perform a case insensitive search if `True`.
 
 Dependencies
 ----------------

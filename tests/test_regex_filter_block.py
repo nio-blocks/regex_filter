@@ -1,6 +1,6 @@
-from collections import defaultdict
 from nio.testing.block_test_case import NIOBlockTestCase
 from nio.signal.base import Signal
+
 from ..regex_filter_block import RegExFilter
 
 

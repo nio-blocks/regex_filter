@@ -1,37 +1,26 @@
 RegExFilter
 ===========
-
-A block for filtering incoming signals by regular expression matching.
-
-For performance reasons, this block pre-compiles the regular expression at block configuration time.
+A block for filtering incoming signals by regular expression matching. For performance reasons, this block pre-compiles the regular expression at block configuration time.
 
 Properties
------------
+----------
+- **ignore_case**: Perform a case insensitive search if `True`.
+- **pattern**: The regular expression against which incoming signals are matched.
+- **string**: Evaluated against each signal, emits the match string.
 
--   **pattern** (type:regex): The regular expression against which incoming signals are matched.
--   **match_string** (type:expression): Evaluated against each signal, emits the match string.
--   **ignore_case** (type:bool, default:False): Perform a case insensitive search if `True`.
+Inputs
+------
+- **default**: Any list of signals.
 
-Dependencies
-----------------
-None
+Outputs
+-------
+- **false**: The subset of inbound signals `s` such that *string(s)* does not match the configured `pattern`.
+- **true**: The subset of inbound signals `s` such that *string(s)* matches the configured `pattern`.
 
 Commands
-----------------
+--------
 None
 
-Input
--------
-Any list of signals.
-
-Output
----------
-Every signal is output to either `true` or `false`.
-
-### true
-
-The subset of inbound signals `s` such that *string(s)* matches the configured `pattern`.
-
-### false
-
-The subset of inbound signals `s` such that *string(s)* does not match the configured `pattern`.
+Dependencies
+------------
+None

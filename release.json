@@ -1,7 +1,7 @@
 {
   "nio/RegExFilter": {
     "language": "Python",
-    "version": "0.0.1",
-    "url": "git://github.com/nio-blocks/regex_filter.git"
+    "url": "git://github.com/nio-blocks/regex_filter.git",
+    "version": "0.1.0"
   }
 }

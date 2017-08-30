@@ -1,14 +1,13 @@
 import re
+
 from nio.block.terminals import output
 from nio.block.base import Block
-from nio.util.discovery import discoverable
-from nio.properties import StringProperty, \
-    Property, BoolProperty, VersionProperty
+from nio.properties import (StringProperty, Property, BoolProperty,
+                            VersionProperty)
 
 
 @output('false')
 @output('true')
-@discoverable
 class RegExFilter(Block):
 
     """ A block to match incoming signals against a Regular .

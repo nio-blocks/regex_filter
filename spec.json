@@ -2,6 +2,9 @@
   "nio/RegExFilter": {
     "version": "0.1.0",
     "description": "A block for filtering incoming signals by regular expression matching. For performance reasons, this block pre-compiles the regular expression at block configuration time.",
+    "categories": [
+      "Signal Flow"
+    ],
     "properties": {
       "ignore_case": {
         "title": "Ignore Case",
